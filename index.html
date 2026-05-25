@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAAR — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --color-red:     #FF1F00;
+  --color-black:   #000000;
+  --color-white:   #FFFFFF;
+  --color-dark:    #111111;
+  --color-gray-90: #1A1A1A;
+  --color-gray-60: #3D3B3C;
+  --color-gray-30: #808080;
+  --color-gray-10: #E8E8E8;
+  --color-gray-05: #F4F4F4;
+
+  --font: 'Ekstra', 'Outfit', sans-serif;
+  --fw-light:   300;
+  --fw-regular: 400;
+  --fw-bold:    700;
+  --fw-black:   900;
+
+  --type-display-xl: clamp(56px, 9vw, 128px);
+  --type-display-lg: clamp(40px, 6vw, 88px);
+  --type-display-md: clamp(28px, 3.5vw, 56px);
+  --type-heading:    clamp(18px, 2vw, 32px);
+  --type-body-lg:    clamp(16px, 1.4vw, 22px);
+  --type-body:       clamp(13px, 1vw, 16px);
+  --type-caption:    clamp(10px, 0.8vw, 13px);
+
+  --space-1:  8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-12: 96px;
+  --space-16: 128px;
+
+  --radius-pill: 999px;
+  --radius-card: 14px;
+  --radius-sm:   4px;
+
+  --ease-enter:    cubic-bezier(0.0, 0.0, 0.2, 1.0);
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+}
+
+/* ─── RESET ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--color-white); color: var(--color-black); overflow-x: hidden; }
+
+/* ─── UTILITIES ───────────────────────────────────────────── */
+.pill {
+  display: inline-flex; align-items: center;
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+  line-height: 1; white-space: nowrap;
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+.pill-outline-dark  { border: 1px solid var(--color-black); color: var(--color-black); }
+.pill-outline-light { border: 1px solid var(--color-white); color: var(--color-white); }
+.pill-outline-red   { border: 1px solid var(--color-black); color: var(--color-black); }
+.pill-solid-dark    { background: var(--color-black); color: var(--color-white); }
+
+.section-marker {
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: var(--type-body); font-weight: var(--fw-regular);
+  text-decoration: none; color: inherit;
+  transition: gap var(--duration-base) var(--ease-standard);
+}
+.cta:hover { gap: 14px; }
+
+/* ─── SECTION FOOTER ──────────────────────────────────────── */
+.section-footer {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding-top: var(--space-6);
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+}
+
+/* ─── 01. HERO ────────────────────────────────────────────── */
+#hero {
+  background: var(--color-red);
+  min-height: 100svh;
+  padding: var(--space-6) var(--space-8);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+}
+.hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.hero-top .wordmark {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.01em;
+}
+.hero-pills { display: flex; gap: var(--space-1); }
+.hero-center {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: var(--space-4);
+}
+.hero-title {
+  font-size: var(--type-display-xl);
+  font-weight: var(--fw-black);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.hero-title span {
+  display: block;
+  font-weight: var(--fw-bold);
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.02em;
+}
+.hero-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+  border-top: 1px solid rgba(0,0,0,0.15);
+  padding-top: var(--space-2);
+}
+
+/* ─── 02. BRAND DNA ───────────────────────────────────────── */
+#dna {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: var(--space-16) var(--space-8);
+}
+.dna-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  margin-top: var(--space-8);
+}
+.dna-etymology {
+  grid-column: 1 / -1;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.etymology-text {
+  font-size: var(--type-display-md);
+  font-weight: var(--fw-light);
+  line-height: 1.15;
+  max-width: 820px;
+  color: rgba(255,255,255,0.9);
+}
+.etymology-text strong { font-weight: var(--fw-bold); color: var(--color-white); }
+.dna-block h3 {
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: var(--space-3);
+}
+.personality-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2);
+}
+.personality-item {
+  padding: var(--space-3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+}
+.personality-item strong {
+  display: block; font-size: var(--type-body); font-weight: var(--fw-bold);
+  margin-bottom: 4px;
+}
+.personality-item p { font-size: var(--type-caption); color: rgba(255,255,255,0.5); }
+.pillars-list { list-style: none; }
+.pillars-list li {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: var(--type-body-lg);
+  display: flex; align-items: baseline; gap: var(--space-2);
+}
+.pillars-list li span {
+  font-size: var(--type-caption); color: rgba(255,255,255,0.35);
+  font-weight: var(--fw-regular); min-width: 20px;
+}
+
+/* ─── 03. COLORS ──────────────────────────────────────────── */
+#colors {
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-white);
+}
+.colors-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-top: 1px solid var(--color-gray-10);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+.swatches-primary {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 2px; margin-bottom: 2px;
+}
+.swatches-neutral {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+}
+.swatch {
+  aspect-ratio: 1 / 0.7;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: var(--space-3);
+  position: relative;
+}
+.swatch-label {
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+  line-height: 1.4;
+}
+.swatch-name { font-weight: var(--fw-bold); display: block; }
+.swatch-hex  { opacity: 0.6; }
+
+.combinations {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2); margin-top: var(--space-6);
+}
+.combo {
+  padding: var(--space-6) var(--space-4);
+  border-radius: var(--radius-card);
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 120px;
+}
+.combo-label { font-size: var(--type-caption); opacity: 0.5; }
+.combo-demo  { font-size: var(--type-heading); font-weight: var(--fw-black); line-height: 1; }
+
+/* ─── 04. TYPOGRAPHY ──────────────────────────────────────── */
+#typography {
+  background: var(--color-gray-05);
+  padding: var(--space-16) var(--space-8);
+}
+.type-header {
+  border-top: 1px solid var(--color-gray-10);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex; justify-content: space-between;
+}
+.type-specimens { display: flex; flex-direction: column; gap: 2px; }
+.type-row {
+  display: grid; grid-template-columns: 180px 1fr;
+  align-items: baseline; gap: var(--space-4);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-gray-10);
+}
+.type-meta { font-size: var(--type-caption); color: var(--color-gray-30); line-height: 1.5; }
+.type-meta strong { display: block; color: var(--color-gray-90); font-weight: var(--fw-bold); }
+
+.weights-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3); margin-top: var(--space-8);
+}
+.weight-card {
+  padding: var(--space-4);
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+}
+.weight-card .sample {
+  font-size: clamp(32px, 4vw, 56px); line-height: 0.95; margin-bottom: var(--space-3);
+}
+.weight-card .meta { font-size: var(--type-caption); color: var(--color-gray-30); }
+.weight-card .meta strong { display: block; color: var(--color-black); }
+
+/* ─── 05. COMPONENTS ──────────────────────────────────────── */
+#components {
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-white);
+}
+.comp-header {
+  border-top: 1px solid var(--color-gray-10);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex; justify-content: space-between;
+}
+.comp-section { margin-bottom: var(--space-12); }
+.comp-section h3 {
+  font-size: var(--type-caption); font-weight: var(--fw-regular);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-gray-30); margin-bottom: var(--space-4);
+}
+.pills-showcase {
+  display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center;
+}
+.cta-showcase { display: flex; flex-direction: column; gap: var(--space-3); }
+.cta-row {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-3) 0; border-bottom: 1px solid var(--color-gray-10);
+}
+.cta-row:last-child { border-bottom: none; }
+
+.cards-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3);
+}
+.card {
+  border-radius: var(--radius-card); overflow: hidden;
+}
+.card-image {
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+}
+.card-body { padding: var(--space-3); }
+.card-body .card-caption { font-size: var(--type-caption); color: var(--color-gray-30); margin-top: 4px; }
+
+/* ─── 06. LAYOUTS ─────────────────────────────────────────── */
+#layouts {
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-gray-05);
+}
+.layouts-header {
+  border-top: 1px solid var(--color-gray-10);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex; justify-content: space-between;
+}
+.layouts-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+.layout-preview {
+  aspect-ratio: 16/9; border-radius: var(--radius-card);
+  overflow: hidden; position: relative;
+  display: flex; flex-direction: column;
+}
+.layout-label {
+  position: absolute; bottom: var(--space-3); left: var(--space-3);
+  font-size: var(--type-caption); opacity: 0.5;
+}
+
+/* Layout: Red Cover */
+.lp-red {
+  background: var(--color-red);
+  padding: var(--space-4);
+}
+.lp-red .lp-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.lp-red .lp-top .wm { font-size: clamp(10px, 1.5vw, 18px); font-weight: var(--fw-bold); }
+.lp-red .lp-pills { display: flex; gap: 4px; }
+.lp-red .lp-center { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+.lp-red .lp-prefix { font-size: clamp(8px, 1.2vw, 14px); font-weight: var(--fw-bold); line-height: 1; }
+.lp-red .lp-title  { font-size: clamp(20px, 5vw, 64px); font-weight: var(--fw-black); line-height: 0.92; letter-spacing: -0.03em; text-transform: uppercase; }
+.lp-red .lp-footer { display: flex; justify-content: space-between; align-items: center; font-size: clamp(7px, 0.8vw, 11px); border-top: 1px solid rgba(0,0,0,0.12); padding-top: 6px; margin-top: 6px; }
+
+/* Layout: White Section */
+.lp-white { background: var(--color-white); padding: var(--space-4); }
+.lp-white .lp-title { font-size: clamp(18px, 4vw, 52px); font-weight: var(--fw-black); line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase; }
+
+/* Layout: Content Spread */
+.lp-gray { background: var(--color-gray-05); padding: var(--space-4); display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.lp-gray .lp-left .marker { font-size: clamp(6px, 0.7vw, 9px); opacity: 0.4; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.lp-gray .lp-left .title  { font-size: clamp(12px, 2.5vw, 30px); font-weight: var(--fw-bold); line-height: 1.1; }
+.lp-gray .lp-right p { font-size: clamp(7px, 0.9vw, 12px); line-height: 1.6; color: var(--color-gray-60); }
+
+/* Layout: Dark Statement */
+.lp-dark { background: var(--color-dark); color: var(--color-white); padding: var(--space-4); }
+.lp-dark .marker { font-size: clamp(6px, 0.7vw, 9px); opacity: 0.3; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-2); }
+.lp-dark .statement { font-size: clamp(10px, 2vw, 24px); font-weight: var(--fw-light); line-height: 1.3; max-width: 70%; }
+.lp-dark .statement strong { font-weight: var(--fw-bold); color: var(--color-white); }
+
+/* ─── 07. VOICE ───────────────────────────────────────────── */
+#voice {
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-dark); color: var(--color-white);
+}
+.voice-header {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex; justify-content: space-between;
+}
+.phrases-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 2px; margin-bottom: var(--space-8);
+}
+.phrase-card {
+  background: var(--color-gray-90);
+  padding: var(--space-6) var(--space-4);
+}
+.phrase-card .phrase {
+  font-size: var(--type-display-md);
+  font-weight: var(--fw-black);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+.phrase-card .source {
+  font-size: var(--type-caption);
+  color: rgba(255,255,255,0.35);
+}
+.vocab-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8);
+}
+.vocab-col h3 {
+  font-size: var(--type-caption); letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: var(--space-4);
+}
+.vocab-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.vocab-tag {
+  padding: 4px 12px; border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-pill);
+  font-size: var(--type-caption); color: rgba(255,255,255,0.7);
+}
+
+/* ─── 08. DO/DON'T ────────────────────────────────────────── */
+#rules {
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-white);
+}
+.rules-header {
+  border-top: 1px solid var(--color-gray-10);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex; justify-content: space-between;
+}
+.rules-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
+}
+.rules-col h3 {
+  font-size: var(--type-heading); font-weight: var(--fw-black);
+  margin-bottom: var(--space-4); letter-spacing: -0.01em;
+}
+.rules-col.do h3 { color: var(--color-black); }
+.rules-col.dont h3 { color: var(--color-gray-30); }
+.rule-item {
+  display: flex; gap: var(--space-2); align-items: flex-start;
+  padding: var(--space-2) 0; border-bottom: 1px solid var(--color-gray-10);
+  font-size: var(--type-body);
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-icon { font-size: 12px; margin-top: 2px; flex-shrink: 0; }
+
+/* ─── 09. TOKENS ──────────────────────────────────────────── */
+#tokens {
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-gray-05);
+}
+.tokens-header {
+  border-top: 1px solid var(--color-gray-10);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-8);
+  display: flex; justify-content: space-between;
+}
+.code-block {
+  background: var(--color-dark); color: #e0e0e0;
+  padding: var(--space-6);
+  border-radius: var(--radius-card);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: clamp(10px, 0.9vw, 13px);
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+}
+.code-block .comment { color: #555; }
+.code-block .prop    { color: #a0c4ff; }
+.code-block .val     { color: #b5ead7; }
+
+/* ─── 10. FOOTER ──────────────────────────────────────────── */
+#footer {
+  background: var(--color-red);
+  padding: var(--space-8);
+  display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 40vh;
+}
+.footer-wordmark {
+  font-size: var(--type-display-xl);
+  font-weight: var(--fw-black);
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-top: 1px solid rgba(0,0,0,0.15);
+  padding-top: var(--space-2);
+  font-size: var(--type-caption);
+}
+
+/* ─── SCROLL REVEAL ───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-enter), transform 0.7s var(--ease-enter);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #hero { padding: var(--space-4); }
+  .dna-grid, .phrases-grid, .rules-grid, .vocab-grid,
+  .layouts-grid, .weights-grid { grid-template-columns: 1fr; }
+  .swatches-primary { grid-template-columns: 1fr 1fr; }
+  .swatches-neutral { grid-template-columns: repeat(3, 1fr); }
+  .combinations, .cards-grid { grid-template-columns: 1fr; }
+  .type-row { grid-template-columns: 1fr; }
+  .lp-gray { grid-template-columns: 1fr; }
+  .personality-grid { grid-template-columns: 1fr; }
+  #hero, #dna, #colors, #typography, #components, #layouts,
+  #voice, #rules, #tokens, #footer { padding-left: var(--space-4); padding-right: var(--space-4); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     01. HERO
+══════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-top">
+    <div class="wordmark">MAAR</div>
+    <div class="hero-pills">
+      <span class="pill pill-outline-red">26.05.2025</span>
+      <span class="pill pill-outline-red">WIP</span>
+    </div>
+  </div>
+  <div class="hero-center">
+    <h1 class="hero-title">
+      <span>Design</span>
+      System
+    </h1>
+  </div>
+  <div class="hero-footer">
+    <span>MAAR</span>
+    <span>→&nbsp;&nbsp;maar.company</span>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     02. BRAND DNA
+══════════════════════════════════════════════════════════ -->
+<section id="dna">
+  <div class="dna-etymology reveal">
+    <p class="section-marker" style="color:rgba(255,255,255,0.35); margin-bottom: var(--space-4);">(Brand DNA)</p>
+    <p class="etymology-text">
+      MAAR é um fenômeno geológico: quando <strong>magma encontra água subterrânea</strong>,
+      o calor vaporiza a água instantaneamente — gerando uma pressão explosiva que escava a rocha.
+      <br><br>
+      A metáfora é a marca: o encontro de forças opostas — <strong>humano e máquina, craft e escala,
+      intenção e velocidade</strong> — que gera algo explosivamente novo.
+    </p>
+  </div>
+
+  <div class="dna-grid">
+    <div class="dna-block reveal">
+      <h3>(Personalidade)</h3>
+      <div class="personality-grid">
+        <div class="personality-item">
+          <strong>Audaciosa</strong>
+          <p>Não hesita. Ocupa o espaço. Não pede licença.</p>
+        </div>
+        <div class="personality-item">
+          <strong>Precisa</strong>
+          <p>Cada detalhe é intencional. Craft acima de tudo.</p>
+        </div>
+        <div class="personality-item">
+          <strong>Viva</strong>
+          <p>A marca não é estática — cresce, adapta, evolui.</p>
+        </div>
+        <div class="personality-item">
+          <strong>Editorial</strong>
+          <p>Pensa como publicação. Cada peça é uma capa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="dna-block reveal">
+      <h3>(Capabilities)</h3>
+      <ul class="pillars-list">
+        <li><span>01</span> Branding</li>
+        <li><span>02</span> Digital</li>
+        <li><span>03</span> Brand Intelligence</li>
+        <li><span>04</span> Content at Scale</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     03. COLOR SYSTEM
+══════════════════════════════════════════════════════════ -->
+<section id="colors">
+  <div class="colors-header reveal">
+    <p class="section-marker">(02 · Color System)</p>
+    <p style="font-size: var(--type-caption); color: var(--color-gray-30);">Ekstra · única família tipográfica</p>
+  </div>
+
+  <div class="reveal">
+    <div class="swatches-primary">
+      <div class="swatch" style="background:#FF1F00;">
+        <div class="swatch-label" style="color:#000;">
+          <span class="swatch-name">MAAR Red</span>
+          <span class="swatch-hex">#FF1F00 · --color-red</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#000000;">
+        <div class="swatch-label" style="color:#fff;">
+          <span class="swatch-name">Black</span>
+          <span class="swatch-hex">#000000 · --color-black</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#FFFFFF; outline: 1px solid #E8E8E8;">
+        <div class="swatch-label" style="color:#000;">
+          <span class="swatch-name">White</span>
+          <span class="swatch-hex">#FFFFFF · --color-white</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatches-neutral">
+      <div class="swatch" style="background:#111111;">
+        <div class="swatch-label" style="color:#fff; font-size:11px;">
+          <span class="swatch-name">Dark</span>
+          <span class="swatch-hex">#111111</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#1A1A1A;">
+        <div class="swatch-label" style="color:#fff; font-size:11px;">
+          <span class="swatch-name">Gray 90</span>
+          <span class="swatch-hex">#1A1A1A</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#3D3B3C;">
+        <div class="swatch-label" style="color:#fff; font-size:11px;">
+          <span class="swatch-name">Gray 60</span>
+          <span class="swatch-hex">#3D3B3C</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#808080;">
+        <div class="swatch-label" style="color:#fff; font-size:11px;">
+          <span class="swatch-name">Gray 30</span>
+          <span class="swatch-hex">#808080</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#E8E8E8;">
+        <div class="swatch-label" style="color:#000; font-size:11px;">
+          <span class="swatch-name">Gray 10</span>
+          <span class="swatch-hex">#E8E8E8</span>
+        </div>
+      </div>
+      <div class="swatch" style="background:#F4F4F4; outline: 1px solid #E8E8E8;">
+        <div class="swatch-label" style="color:#000; font-size:11px;">
+          <span class="swatch-name">Gray 05</span>
+          <span class="swatch-hex">#F4F4F4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="combinations reveal">
+    <div class="combo" style="background:#FF1F00; color:#000;">
+      <span class="combo-label">Red · Black</span>
+      <span class="combo-demo">MAAR</span>
+    </div>
+    <div class="combo" style="background:#000000; color:#ffffff;">
+      <span class="combo-label">Black · White</span>
+      <span class="combo-demo">MAAR</span>
+    </div>
+    <div class="combo" style="background:#111111; color:#ffffff;">
+      <span class="combo-label">Dark · White</span>
+      <span class="combo-demo">MAAR</span>
+    </div>
+    <div class="combo" style="background:#FFFFFF; color:#000000; outline: 1px solid #E8E8E8;">
+      <span class="combo-label">White · Black</span>
+      <span class="combo-demo">MAAR</span>
+    </div>
+    <div class="combo" style="background:#F4F4F4; color:#000000;">
+      <span class="combo-label">Gray 05 · Black</span>
+      <span class="combo-demo">MAAR</span>
+    </div>
+    <div class="combo" style="background:#3D3B3C; color:#ffffff;">
+      <span class="combo-label">Gray 60 · White</span>
+      <span class="combo-demo">MAAR</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     04. TYPOGRAPHY
+══════════════════════════════════════════════════════════ -->
+<section id="typography">
+  <div class="type-header reveal">
+    <p class="section-marker">(03 · Typography)</p>
+    <p style="font-size: var(--type-caption); color: var(--color-gray-30);">Ekstra — única família tipográfica da MAAR</p>
+  </div>
+
+  <div class="type-specimens reveal">
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Display XL</strong>
+        96–120px · Black · lh 0.95
+      </div>
+      <div style="font-size: clamp(56px, 8vw, 110px); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em;">MAAR</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Display LG</strong>
+        64–80px · Black · lh 1.0
+      </div>
+      <div style="font-size: clamp(36px, 5.5vw, 72px); font-weight: 900; line-height: 1.0; letter-spacing: -0.02em;">DARE TO IMAGINE.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Display MD</strong>
+        40–56px · Bold · lh 1.05
+      </div>
+      <div style="font-size: clamp(24px, 3.5vw, 48px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;">Design system com escala</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Heading</strong>
+        28–36px · Bold · lh 1.1
+      </div>
+      <div style="font-size: clamp(18px, 2.2vw, 32px); font-weight: 700; line-height: 1.1;">Brand Intelligence</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Body LG</strong>
+        18–22px · Regular · lh 1.5
+      </div>
+      <div style="font-size: clamp(16px, 1.4vw, 20px); font-weight: 400; line-height: 1.5; max-width: 600px;">A IA transforma cada etapa do fluxo criativo, enquanto o gosto e a curadoria humanos permanecem fundamentais.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Body</strong>
+        14–16px · Regular · lh 1.5
+      </div>
+      <div style="font-size: clamp(13px, 1vw, 15px); font-weight: 400; line-height: 1.5; color: var(--color-gray-60); max-width: 600px;">Treinamento via LORA com diretrizes específicas da marca para gerar ativos visuais personalizados que se alinham perfeitamente com sua identidade única.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">
+        <strong>Caption</strong>
+        11–13px · Light · lh 1.4
+      </div>
+      <div style="font-size: 12px; font-weight: 300; line-height: 1.4; color: var(--color-gray-30); letter-spacing: 0.02em;">(BRANDS) · (LEADERSHIP) · 26.05.2025 · maar.company</div>
+    </div>
+  </div>
+
+  <div class="weights-grid reveal">
+    <div class="weight-card">
+      <div class="sample" style="font-weight: 300;">Aa</div>
+      <div class="meta"><strong>Light · 300</strong>Suporte, captions, metadados</div>
+    </div>
+    <div class="weight-card">
+      <div class="sample" style="font-weight: 400;">Aa</div>
+      <div class="meta"><strong>Regular · 400</strong>Body text, descrições</div>
+    </div>
+    <div class="weight-card">
+      <div class="sample" style="font-weight: 700;">Aa</div>
+      <div class="meta"><strong>Bold · 700</strong>Headings, destaques</div>
+    </div>
+    <div class="weight-card">
+      <div class="sample" style="font-weight: 900;">Aa</div>
+      <div class="meta"><strong>Black · 900</strong>Display, wordmark, covers</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     05. COMPONENTS
+══════════════════════════════════════════════════════════ -->
+<section id="components">
+  <div class="comp-header reveal">
+    <p class="section-marker">(05 · Components)</p>
+  </div>
+
+  <!-- Pills -->
+  <div class="comp-section reveal">
+    <h3>(Tags / Pills)</h3>
+    <div class="pills-showcase">
+      <span class="pill pill-outline-dark">World Creativity Festival</span>
+      <span class="pill pill-outline-dark">Brand System</span>
+      <span class="pill pill-outline-dark">Maar</span>
+      <span class="pill pill-outline-dark">26.05.2025</span>
+      <span class="pill pill-outline-dark">WIP</span>
+      <span class="pill pill-solid-dark">Overview</span>
+      <span class="pill pill-solid-dark">Challenge</span>
+      <span class="pill pill-solid-dark">Prototyping with A.I</span>
+      <div style="background: var(--color-red); padding: 12px 20px; border-radius: 8px; display:flex; gap: 8px;">
+        <span class="pill pill-outline-red">26.05.2025</span>
+        <span class="pill pill-outline-red">WIP</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTAs -->
+  <div class="comp-section reveal">
+    <h3>(CTA / Navegação)</h3>
+    <div class="cta-showcase">
+      <div class="cta-row">
+        <a class="cta" href="#">→&nbsp;&nbsp;maar.company</a>
+        <span style="font-size: var(--type-caption); color: var(--color-gray-30);">CTA primário — tipográfico direto</span>
+      </div>
+      <div class="cta-row">
+        <a class="cta" href="#" style="font-size: var(--type-body-lg); font-weight: var(--fw-bold);">→&nbsp;&nbsp;Visit the Full Case Study</a>
+        <span style="font-size: var(--type-caption); color: var(--color-gray-30);">CTA destacado</span>
+      </div>
+      <div class="cta-row">
+        <span style="font-size: var(--type-body);">↳&nbsp;&nbsp;maar.company/wcf</span>
+        <span style="font-size: var(--type-caption); color: var(--color-gray-30);">Atribuição / URL secundária</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Markers -->
+  <div class="comp-section reveal">
+    <h3>(Section Markers)</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+      <div style="padding: var(--space-4); background: var(--color-white); border: 1px solid var(--color-gray-10); border-radius: var(--radius-sm);">
+        <p style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px;">(BRANDS)</p>
+        <p style="font-size: var(--type-body);">Sobre fundo branco</p>
+      </div>
+      <div style="padding: var(--space-4); background: var(--color-dark); border-radius: var(--radius-sm);">
+        <p style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.3; color: #fff; margin-bottom: 8px;">(LEADERSHIP)</p>
+        <p style="font-size: var(--type-body); color: #fff;">Sobre fundo escuro</p>
+      </div>
+      <div style="padding: var(--space-4); background: var(--color-red); border-radius: var(--radius-sm);">
+        <p style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px;">(GENERATIVE DESIGN)</p>
+        <p style="font-size: var(--type-body);">Sobre MAAR Red</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Signature -->
+  <div class="comp-section reveal">
+    <h3>(Assinatura de Rodapé)</h3>
+    <div style="display: flex; flex-direction: column; gap: var(--space-2);">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) var(--space-4); background: var(--color-red); border-radius: var(--radius-sm);">
+        <span style="font-size: var(--type-caption); font-weight: var(--fw-bold);">MAAR</span>
+        <span style="font-size: var(--type-caption);">→&nbsp;&nbsp;TODOS OS DIREITOS RESERVADOS ©</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) var(--space-4); background: var(--color-dark); border-radius: var(--radius-sm);">
+        <span style="font-size: var(--type-caption); font-weight: var(--fw-bold); color: #fff;">MAAR</span>
+        <span style="font-size: var(--type-caption); color: #fff;">→&nbsp;&nbsp;maar.company</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="comp-section reveal">
+    <h3>(Cards de Imagem)</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-image" style="background: var(--color-gray-90);">
+          <span style="font-size: 40px; font-weight: 900; color: rgba(255,255,255,0.08);">3D</span>
+        </div>
+        <div class="card-body" style="background: var(--color-gray-05);">
+          <p style="font-size: var(--type-caption); font-weight: var(--fw-bold);">Natura Una</p>
+          <p class="card-caption">AI Photoshooting · 40+ imagens</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image" style="background: var(--color-gray-60);">
+          <span style="font-size: 40px; font-weight: 900; color: rgba(255,255,255,0.08);">AI</span>
+        </div>
+        <div class="card-body" style="background: var(--color-gray-05);">
+          <p style="font-size: var(--type-caption); font-weight: var(--fw-bold);">Nubank Caixinhas</p>
+          <p class="card-caption">LoRA Training · App icons</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image" style="background: var(--color-dark);">
+          <span style="font-size: 40px; font-weight: 900; color: rgba(255,255,255,0.08);">DS</span>
+        </div>
+        <div class="card-body" style="background: var(--color-gray-05);">
+          <p style="font-size: var(--type-caption); font-weight: var(--fw-bold);">AI/R Group</p>
+          <p class="card-caption">Brand Ecosystem · 6 marcas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     06. LAYOUT PATTERNS
+══════════════════════════════════════════════════════════ -->
+<section id="layouts">
+  <div class="layouts-header reveal">
+    <p class="section-marker">(07 · Layout Patterns)</p>
+  </div>
+
+  <div class="layouts-grid reveal">
+    <!-- Red Cover -->
+    <div class="layout-preview lp-red">
+      <div class="lp-top">
+        <span class="lp-top wm">MAAR</span>
+        <div class="lp-pills">
+          <span style="border:1px solid rgba(0,0,0,0.4); border-radius:999px; padding:2px 8px; font-size:9px;">26.05.2025</span>
+          <span style="border:1px solid rgba(0,0,0,0.4); border-radius:999px; padding:2px 8px; font-size:9px;">WIP</span>
+        </div>
+      </div>
+      <div class="lp-center">
+        <p class="lp-prefix">Design</p>
+        <p class="lp-title">System</p>
+      </div>
+      <div class="lp-footer">
+        <span>MAAR</span>
+        <span>→ Todos os direitos reservados ©</span>
+      </div>
+      <span class="layout-label">Cover · Red</span>
+    </div>
+
+    <!-- White Section -->
+    <div class="layout-preview lp-white" style="justify-content: flex-end; padding: var(--space-4);">
+      <div>
+        <p class="lp-title">O USO<br>DE IA<br>GENERATIVA</p>
+      </div>
+      <span class="layout-label" style="color: var(--color-gray-30);">Section Opener · White</span>
+    </div>
+
+    <!-- Content Spread -->
+    <div class="layout-preview lp-gray">
+      <div class="lp-left">
+        <p class="marker">(BRANDS)</p>
+        <p class="title">Design system<br>com escala</p>
+      </div>
+      <div class="lp-right" style="display:flex; align-items:flex-start; padding-top: 20px;">
+        <p>Para assegurar que a comunicação da marca seja consistente, escalável e visualmente impactante, os templates serão desenvolvidos a partir do brand system oficial.</p>
+      </div>
+      <span class="layout-label" style="color:var(--color-gray-30);">Content Spread · Gray</span>
+    </div>
+
+    <!-- Dark Statement -->
+    <div class="layout-preview lp-dark">
+      <p class="marker">(O FUTURO DA MARCA)</p>
+      <p class="statement">
+        A IA generativa remove as restrições tradicionais, permitindo uma exploração contínua que possibilita às marcas serem <strong>mais audaciosas e únicas.</strong>
+      </p>
+      <span class="layout-label" style="color:rgba(255,255,255,0.3);">Dark Statement</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     07. VOICE & TONE
+══════════════════════════════════════════════════════════ -->
+<section id="voice">
+  <div class="voice-header reveal">
+    <p class="section-marker" style="color:rgba(255,255,255,0.35);">(11 · Voice &amp; Tone)</p>
+    <p style="font-size: var(--type-caption); color: rgba(255,255,255,0.25);">Direta, técnica, visionária.</p>
+  </div>
+
+  <div class="phrases-grid reveal">
+    <div class="phrase-card">
+      <p class="phrase">DARE TO<br>IMAGINE.</p>
+      <p class="source">Headline / Cover — declarativo</p>
+    </div>
+    <div class="phrase-card">
+      <p class="phrase">AI is not the<br>destination.</p>
+      <p class="source">Post MAGU Directors — posicionamento</p>
+    </div>
+    <div class="phrase-card">
+      <p class="phrase">From scarcity<br>to abundance.</p>
+      <p class="source">Manifesto — filosófico</p>
+    </div>
+    <div class="phrase-card" style="background: var(--color-red); color: var(--color-black);">
+      <p class="phrase">Crafted by humans,<br>amplified by AI.</p>
+      <p class="source" style="color: rgba(0,0,0,0.5);">Tagline central — identidade</p>
+    </div>
+  </div>
+
+  <div class="vocab-grid reveal">
+    <div class="vocab-col">
+      <h3>(Vocabulário — PT)</h3>
+      <div class="vocab-tags">
+        <span class="vocab-tag">marca viva</span>
+        <span class="vocab-tag">marca pulsante</span>
+        <span class="vocab-tag">ecossistema de marca</span>
+        <span class="vocab-tag">craft</span>
+        <span class="vocab-tag">rigor estético</span>
+        <span class="vocab-tag">precisão</span>
+        <span class="vocab-tag">da escassez à abundância</span>
+        <span class="vocab-tag">direção</span>
+        <span class="vocab-tag">intenção</span>
+        <span class="vocab-tag">linguagem</span>
+        <span class="vocab-tag">audacioso</span>
+        <span class="vocab-tag">resiliente</span>
+      </div>
+    </div>
+    <div class="vocab-col">
+      <h3>(Vocabulário — EN)</h3>
+      <div class="vocab-tags">
+        <span class="vocab-tag">living brand ecosystems</span>
+        <span class="vocab-tag">adaptive</span>
+        <span class="vocab-tag">non stop evolving</span>
+        <span class="vocab-tag">bold, unique expressions</span>
+        <span class="vocab-tag">authorial vision</span>
+        <span class="vocab-tag">human curation</span>
+        <span class="vocab-tag">lean and agile</span>
+        <span class="vocab-tag">craft cinematográfico</span>
+        <span class="vocab-tag">blur the boundaries</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     08. DO / DON'T
+══════════════════════════════════════════════════════════ -->
+<section id="rules">
+  <div class="rules-header reveal">
+    <p class="section-marker">(12 · Do / Don't)</p>
+  </div>
+
+  <div class="rules-grid reveal">
+    <div class="rules-col do">
+      <h3>Do ✓</h3>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Usar MAAR Red para impacto máximo — covers, CTAs, momentos-chave</span></div>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Deixar o espaço em branco respirar — o vazio é parte do design</span></div>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Usar Ekstra Black em grandes — deixar a tipografia ser o elemento visual</span></div>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Assinar sempre com MAAR e →</span></div>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Manter contraste máximo em qualquer contexto</span></div>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Pills para categorizar, nunca para decorar</span></div>
+      <div class="rule-item"><span class="rule-icon">→</span><span>Toda imagem AI passa por direção estética humana</span></div>
+    </div>
+
+    <div class="rules-col dont">
+      <h3>Don't ✗</h3>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca usar a logo em vermelho</span></div>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca usar gradientes — a marca é sólida e direta</span></div>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca misturar mais de 3 cores em uma peça</span></div>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca usar bold onde Black resolveria melhor</span></div>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca usar sombras ou efeitos de profundidade falsos</span></div>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca gerar imagem AI sem curadoria humana</span></div>
+      <div class="rule-item" style="color: var(--color-gray-30);"><span class="rule-icon">—</span><span>Nunca "solução inovadora", "estado da arte", "líder de mercado"</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     09. CSS TOKENS
+══════════════════════════════════════════════════════════ -->
+<section id="tokens">
+  <div class="tokens-header reveal">
+    <p class="section-marker">(13 · CSS Tokens)</p>
+  </div>
+
+  <div class="code-block reveal"><span class="comment">/* ── MAAR Design System — CSS Custom Properties ──────────── */</span>
+<span class="comment">/* maar.company · v1.0 · 26.05.2025                          */</span>
+
+:root {
+  <span class="comment">/* Colors */</span>
+  <span class="prop">--color-red</span>:      <span class="val">#FF1F00</span>;
+  <span class="prop">--color-black</span>:    <span class="val">#000000</span>;
+  <span class="prop">--color-white</span>:    <span class="val">#FFFFFF</span>;
+  <span class="prop">--color-dark</span>:     <span class="val">#111111</span>;
+  <span class="prop">--color-gray-90</span>:  <span class="val">#1A1A1A</span>;
+  <span class="prop">--color-gray-60</span>:  <span class="val">#3D3B3C</span>;
+  <span class="prop">--color-gray-30</span>:  <span class="val">#808080</span>;
+  <span class="prop">--color-gray-10</span>:  <span class="val">#E8E8E8</span>;
+  <span class="prop">--color-gray-05</span>:  <span class="val">#F4F4F4</span>;
+
+  <span class="comment">/* Typography */</span>
+  <span class="prop">--font</span>:            <span class="val">'Ekstra', 'Outfit', sans-serif</span>;
+  <span class="prop">--fw-light</span>:        <span class="val">300</span>;
+  <span class="prop">--fw-regular</span>:      <span class="val">400</span>;
+  <span class="prop">--fw-bold</span>:         <span class="val">700</span>;
+  <span class="prop">--fw-black</span>:        <span class="val">900</span>;
+
+  <span class="prop">--type-display-xl</span>: <span class="val">clamp(64px, 8vw, 120px)</span>;
+  <span class="prop">--type-display-lg</span>: <span class="val">clamp(40px, 5vw, 80px)</span>;
+  <span class="prop">--type-display-md</span>: <span class="val">clamp(28px, 3.5vw, 56px)</span>;
+  <span class="prop">--type-heading</span>:    <span class="val">clamp(20px, 2.5vw, 36px)</span>;
+  <span class="prop">--type-body-lg</span>:    <span class="val">clamp(16px, 1.5vw, 22px)</span>;
+  <span class="prop">--type-body</span>:       <span class="val">clamp(13px, 1vw, 16px)</span>;
+  <span class="prop">--type-caption</span>:    <span class="val">clamp(10px, 0.8vw, 13px)</span>;
+
+  <span class="comment">/* Spacing (base: 8px) */</span>
+  <span class="prop">--space-1</span>:  <span class="val">8px</span>;   <span class="prop">--space-2</span>:  <span class="val">16px</span>;
+  <span class="prop">--space-3</span>:  <span class="val">24px</span>;  <span class="prop">--space-4</span>:  <span class="val">32px</span>;
+  <span class="prop">--space-6</span>:  <span class="val">48px</span>;  <span class="prop">--space-8</span>:  <span class="val">64px</span>;
+  <span class="prop">--space-12</span>: <span class="val">96px</span>;  <span class="prop">--space-16</span>: <span class="val">128px</span>;
+
+  <span class="comment">/* Border Radius */</span>
+  <span class="prop">--radius-pill</span>: <span class="val">999px</span>;
+  <span class="prop">--radius-card</span>: <span class="val">14px</span>;
+  <span class="prop">--radius-sm</span>:   <span class="val">4px</span>;
+
+  <span class="comment">/* Motion */</span>
+  <span class="prop">--ease-enter</span>:    <span class="val">cubic-bezier(0.0, 0.0, 0.2, 1.0)</span>;
+  <span class="prop">--ease-exit</span>:     <span class="val">cubic-bezier(0.4, 0.0, 1.0, 1.0)</span>;
+  <span class="prop">--ease-standard</span>: <span class="val">cubic-bezier(0.4, 0.0, 0.2, 1.0)</span>;
+  <span class="prop">--duration-fast</span>:      <span class="val">150ms</span>;
+  <span class="prop">--duration-base</span>:      <span class="val">300ms</span>;
+  <span class="prop">--duration-slow</span>:      <span class="val">600ms</span>;
+  <span class="prop">--duration-cinematic</span>: <span class="val">1200ms</span>;
+}</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     10. FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-wordmark reveal">MAAR</div>
+  <div class="footer-bottom">
+    <span>maar.company</span>
+    <span>→&nbsp;&nbsp;TODOS OS DIREITOS RESERVADOS ©</span>
+  </div>
+</footer>
+
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
